@@ -1,0 +1,15 @@
+include ../Makefile.conf
+NAME=$(subst $(dir $(realpath .)),,$(realpath .))
+TAG=$(NAME)-latest
+
+IMAGE_TAG=$(REGISTRY)/$(NS)/$(IMAGE):$(TAG)
+
+build:
+	@echo $(NS)
+	@docker build -t $(IMAGE_TAG) .
+	@echo "built $(IMAGE_TAG)"
+
+push:
+	docker push $(IMAGE_TAG)
+
+.PHONY: build push
