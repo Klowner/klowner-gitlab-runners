@@ -11,4 +11,7 @@ build:
 push:
 	@docker push $(IMAGE_TAG)
 
-.PHONY: build push
+packages: packages.sh
+	./packages.sh
+
+.PHONY: build push packages
