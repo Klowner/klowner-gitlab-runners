@@ -9,6 +9,9 @@ build:
 	@docker build -t $(IMAGE_TAG) .
 	@echo "built $(IMAGE_TAG)"
 
+buildforce:
+	@docker build --no-cache -t $(IMAGE_TAG) .
+
 push:
 	docker push $(IMAGE_TAG)
 

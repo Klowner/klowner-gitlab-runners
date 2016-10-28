@@ -1,7 +1,6 @@
 #!/bin/sh
 ALPINE_DEV_ENV=alpine-mark
 BUILD_DIR=${PWD}/build
-#PACKAGES="ilmbase openexr opensubdiv blender"
 PACKAGES="blender"
 
 echo "args: $1"
