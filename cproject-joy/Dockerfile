@@ -6,7 +6,8 @@ RUN apk add \
 	luajit \
 	luajit-dev \
 	blender-headless \
-	physfs-dev
+	physfs-dev \
+	openal-soft-dev
 
 #COPY packages/ /tmp/packages
 #COPY repositories /tmp/packages/
