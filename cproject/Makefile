@@ -12,6 +12,9 @@ build:
 buildforce:
 	@docker build --no-cache -t $(IMAGE_TAG) .
 
+run:
+	@docker run --rm -it $(IMAGE_TAG) sh
+
 push:
 	docker push $(IMAGE_TAG)
 

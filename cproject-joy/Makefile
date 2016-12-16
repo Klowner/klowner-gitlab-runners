@@ -11,6 +11,9 @@ build:
 push:
 	@docker push $(IMAGE_TAG)
 
+run:
+	@docker run --rm -it $(IMAGE_TAG) sh
+
 packages: packages.sh
 	./packages.sh
 
