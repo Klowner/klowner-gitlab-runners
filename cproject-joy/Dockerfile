@@ -3,6 +3,7 @@ MAINTAINER Mark Riedesel <mark@klowner.com>
 
 RUN apk add --no-cache \
 	blender-headless \
+	gcovr \
 	genie \
 	luajit \
 	luajit-dev \

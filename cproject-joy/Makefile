@@ -5,7 +5,7 @@ TAG=$(NAME)-latest
 IMAGE_TAG=$(REGISTRY)/$(NS)/$(IMAGE):$(TAG)
 
 build:
-	@docker build -t $(IMAGE_TAG) .
+	@docker build --no-cache -t $(IMAGE_TAG) .
 	@echo "built $(IMAGE_TAG)"
 
 push:

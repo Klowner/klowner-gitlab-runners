@@ -3,7 +3,7 @@ include Makefile.conf
 cproject: cproject/Dockerfile
 	$(MAKE) -C cproject
 
-cproject-daemon1c: cproject-daemon1c/Dockerfile
-	$(MAKE) -C cproject-daemon1c
+cproject-joy: cproject-joy/Dockerfile
+	$(MAKE) -C cproject-joy
 
-.PHONY: cproject cproject-daemon1c
+.PHONY: cproject cproject-joy
