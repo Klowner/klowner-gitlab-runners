@@ -12,8 +12,9 @@ make HOST_CC='gcc -m64' CROSS=x86_64-w64-mingw32- TARGET_SYS=Windows BUILDMODE=s
 find . -iname *.o -exec rm {} \;
 
 # OpenAL
+OPENAL_VERSION=1.17.2
 cd /3rdparty
-curl http://kcat.strangesoft.net/openal-binaries/openal-soft-1.17.2-bin.zip > openal-soft.zip
+curl http://kcat.strangesoft.net/openal-binaries/openal-soft-${OPENAL_VERSION}-bin.zip > openal-soft.zip
 unzip openal-soft.zip
 rm openal-soft.zip
 
