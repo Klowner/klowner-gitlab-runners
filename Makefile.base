@@ -4,11 +4,16 @@ TAG=$(NAME)-latest
 
 IMAGE_TAG=$(REGISTRY)/$(NS)/$(IMAGE):$(TAG)
 
-build:
+PARENT=$(shell grep 'gitlab-test-runners:' Dockerfile | cut -d ':' -f 2 | cut -d '-' -f 1,2,3 )
+ifeq ("$(wildcard ../$(PARENT)/*)", "")
+PARENT=
+endif
+
+build: parent-image
 	@docker build -t $(IMAGE_TAG) .
 	@echo "built $(IMAGE_TAG)"
 
-buildforce:
+buildforce: parent-image
 	@docker build --no-cache -t $(IMAGE_TAG) .
 
 run:
@@ -17,4 +22,9 @@ run:
 push:
 	docker push $(IMAGE_TAG)
 
-.PHONY: build push
+parent-image:
+ifneq ($(PARENT),)
+	$(MAKE) -C .. $(PARENT)
+endif
+
+.PHONY: build push parent-image

@@ -1,17 +1,13 @@
 include Makefile.conf
 
+all: $(IMAGE_DIRS)
+
 %: %/Dockerfile
+	$(MAKE) -C $@
 
-cproject: cproject/Dockerfile
-	$(MAKE) -C cproject
+%/push:
+	$(MAKE) -C $* push
 
-cproject-joy: cproject-joy/Dockerfile cproject
-	$(MAKE) -C cproject-joy
+push: $(foreach dir,$(IMAGE_DIRS),$(dir)/push)
 
-archlinux-gcc-x64:
-archlinux-mingw-x64: archlinux-gcc-x64
-archlinux-clang-x64: archlinux-gcc-x64
-
-
-.PHONY: cproject cproject-joy \
-	archlinux-mingw-x64 archlinux-gcc-x64 archlinux-clang-x64
+.PHONY: % push %/push
