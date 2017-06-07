@@ -4,9 +4,12 @@ TAG=$(NAME)-latest
 
 IMAGE_TAG=$(REGISTRY)/$(NS)/$(IMAGE):$(TAG)
 
-PARENT=$(shell grep 'gitlab-test-runners:' Dockerfile | cut -d ':' -f 2 | cut -d '-' -f 1,2,3 )
-ifeq ("$(wildcard ../$(PARENT)/*)", "")
-PARENT=
+PARENT=$(shell grep 'gitlab-test-runners:' Dockerfile | cut -d ':' -f 2 | sed "s/-[^-]*$$//")
+ifneq ($(PARENT),)
+PARENT_IS_UPSTREAM=false
+else
+PARENT=$(shell grep 'FROM' Dockerfile | cut -d ' ' -f 2)
+PARENT_IS_UPSTREAM=true
 endif
 
 build: parent-image
@@ -23,8 +26,15 @@ push:
 	docker push $(IMAGE_TAG)
 
 parent-image:
-ifneq ($(PARENT),)
+ifeq ($(PARENT_IS_UPSTREAM), "false")
 	$(MAKE) -C .. $(PARENT)
 endif
 
-.PHONY: build push parent-image
+pull:
+ifeq ($(PARENT_IS_UPSTREAM), false)
+	$(MAKE) -C ../$(PARENT) pull
+else
+	@docker pull $(PARENT)
+endif
+
+.PHONY: build push parent-image pull

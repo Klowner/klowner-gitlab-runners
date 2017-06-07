@@ -2,12 +2,19 @@ include Makefile.conf
 
 all: $(IMAGE_DIRS)
 
-%: %/Dockerfile
+%/Makefile:
+	ln -s ../Makefile.base $@
+
+%: %/Dockerfile %/Makefile
 	$(MAKE) -C $@
 
 %/push:
 	$(MAKE) -C $* push
 
-push: $(foreach dir,$(IMAGE_DIRS),$(dir)/push)
+%/pull:
+	$(MAKE) -C $* pull
 
-.PHONY: % push %/push
+push: $(foreach dir,$(IMAGE_DIRS),$(dir)/push)
+pull: $(foreach dir,$(IMAGE_DIRS),$(dir)/pull)
+
+.PHONY: % push %/push pull %/pull
