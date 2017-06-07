@@ -1,14 +1,17 @@
 FROM greyltc/archlinux:latest
 MAINTAINER Mark Riedesel <mark@klowner.com>
 
-RUN pacman -Sy --noconfirm \
+RUN pacman -Syu --noconfirm \
 	binutils \
+	bison    \
 	fakeroot \
+	flex     \
 	gcc      \
 	git      \
 	make     \
 	ninja    \
 	openssh  \
+	openssl  \
 	sudo     \
 	&& cleanup-image
 

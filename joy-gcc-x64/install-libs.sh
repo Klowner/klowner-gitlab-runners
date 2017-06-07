@@ -23,5 +23,21 @@ find . -iname *.o -exec rm {} \;
 
 # PhysFS
 cd /3rdparty
-hg clone https://hg.icculus.org/icculus/physfs/
+hg clone -r stable-2.0 https://hg.icculus.org/icculus/physfs/
 rm -rf physfs/.hg*
+cd physfs
+mkdir -p build && cd build
+cmake .. \
+	-DPHYSFS_BUILD_STATIC=true \
+	-DPHYSFS_BUILD_TEST=false \
+	-DPHYSFS_ARCHIVE_ZIP=true \
+	-DPHYSFS_ARCHIVE_7Z=true \
+	-DPHYSFS_ARCHIVE_GRP=false \
+	-DPHYSFS_ARCHIVE_WAD=false \
+	-DPHYSFS_ARCHIVE_HOG=false \
+	-DPHYSFS_ARCHIVE_MVL=false \
+	-DPHYSFS_ARCHIVE_QPAK=false \
+	-DPHYSFS_HAVE_CDROM_SUPPORT=false \
+	-DPHYSFS_HAVE_THREAD_SUPPORT=true
+make
+find . -iname *.o -exec rm {} \;
