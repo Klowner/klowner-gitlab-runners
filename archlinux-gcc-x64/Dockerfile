@@ -40,6 +40,7 @@ RUN mkdir -p /tmp/gcovr && \
 	which gcovr && \
 	cleanup-image
 
-ADD assets /etc/
+ADD assets /etc/profile.d
 
 VOLUME [ "/mnt/cache" ]
+CMD /bin/bash
