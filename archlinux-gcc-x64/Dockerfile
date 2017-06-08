@@ -4,6 +4,8 @@ MAINTAINER Mark Riedesel <mark@klowner.com>
 RUN pacman -Syu --noconfirm \
 	binutils \
 	bison    \
+	ccache   \
+	colorgcc \
 	fakeroot \
 	flex     \
 	gcc      \
@@ -25,3 +27,7 @@ RUN mkdir -p /tmp/genie && \
 	pacman -U --noconfirm *pkg.tar.xz && \
 	cd / && rm -rf /tmp/genie && \
 	which genie
+
+ADD assets /etc/
+
+VOLUME [ "/mnt/cache" ]
