@@ -12,6 +12,6 @@ RUN pacman -Sy --noconfirm \
 ADD install-libs.sh /usr/sbin/install-libs
 RUN install-libs
 
-ENV LUAJIT_DIR /3rdparty/luajit-2.0
-ENV OPENAL_DIR /3rdparty/openal-soft
-ENV PHYSFS_DIR /3rdparty/physfs
+ENV LUAJIT_DIR=/3rdparty/luajit-2.0
+ENV OPENAL_DIR=/3rdparty/openal-soft
+ENV PHYSFS_DIR=/3rdparty/physfs
