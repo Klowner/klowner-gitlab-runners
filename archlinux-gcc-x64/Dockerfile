@@ -43,4 +43,3 @@ RUN mkdir -p /tmp/gcovr && \
 ADD assets /etc/profile.d
 
 VOLUME [ "/mnt/cache" ]
-CMD /bin/bash
