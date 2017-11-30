@@ -3,10 +3,11 @@ MAINTAINER Mark Riedesel <mark@klowner.com>
 
 RUN pacman -Sy --noconfirm \
 	cmake \
+	libpulse \
 	lua \
 	mercurial \
 	mesa \
-	libpulse \
+	zip \
 	&& cleanup-image
 
 ADD install-libs.sh /usr/sbin/install-libs

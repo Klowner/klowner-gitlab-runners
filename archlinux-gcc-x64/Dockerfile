@@ -1,4 +1,4 @@
-FROM greyltc/archlinux:latest
+FROM docker.klowner.com/mark/gitlab-test-runners:archlinux-latest
 MAINTAINER Mark Riedesel <mark@klowner.com>
 
 RUN pacman -Syu --noconfirm \
@@ -15,30 +15,20 @@ RUN pacman -Syu --noconfirm \
 	openssh  \
 	openssl  \
 	sudo     \
+	zip      \
 	&& cleanup-image
 
 RUN usermod -aG wheel nobody && \
 	echo "%wheel ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
 
-# Build and install GENie
-RUN mkdir -p /tmp/genie && \
-	cd /tmp/genie && \
-	chown nobody /tmp/genie && \
-	curl "https://aur.archlinux.org/cgit/aur.git/plain/PKGBUILD?h=genie-git" > PKGBUILD && \
-	su - nobody -s /bin/sh -c "cd /tmp/genie && makepkg -si --noconfirm" && \
-	cd / && rm -rf /tmp/genie && \
-	which genie && \
-	cleanup-image
+## Install GENie from AUR
+RUN su docker -c "pacaur -S --noprogressbar --noedit --noconfirm genie-git"
 
-# Build and install gcovr from AUR
-RUN mkdir -p /tmp/gcovr && \
-	cd /tmp/gcovr && \
-	chown nobody /tmp/gcovr && \
-	curl "https://aur.archlinux.org/cgit/aur.git/plain/PKGBUILD?h=gcovr" > PKGBUILD && \
-	su - nobody -s /bin/sh -c "cd /tmp/gcovr && makepkg -si --noconfirm" && \
-	cd / && rm -rf /tmp/gcovr && \
-	which gcovr && \
-	cleanup-image
+# Install gcovr from AUR
+RUN su docker -c "pacaur -S --noprogressbar --noedit --noconfirm gcovr"
+
+# Install lcov from AUR
+RUN su docker -c "pacaur -S --noprogressbar --noedit --noconfirm lcov"
 
 ADD assets /etc/profile.d
 
